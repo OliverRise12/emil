@@ -1,4 +1,4 @@
-
+#!/bin/sh
 receiptTopic="downloadReceipt"
 requestTopic="downloadRequest"
 handShakeTopic="droneHello"
