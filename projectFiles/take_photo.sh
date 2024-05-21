@@ -5,7 +5,7 @@ timestamp=$(date '+%Y-%m-%d %H:%M:%S.%3N%:z')
 
 mkdir -p "/home/emil/$root_dir" && cd "/home/emil/$root_dir"
 dir_name=$(date -d "$timestamp" +%Y-%m-%d)
-img_name="$(date -d "$timestamp" -d '+1 hour' +%H)$(date -d "$timestamp" +%M%S_%3N)"
+img_name="$(date -d "$timestamp" +%H%M%S_%3N)"
 mkdir -p "./$dir_name" && cd "./$dir_name"
 if rpicam-still -t 0.01 -v 0 -o "$img_name.jpg" ; then 
 	create_date=$(date -d "$timestamp" '+%Y-%m-%d %H:%M:%S.%3N%:z') 
