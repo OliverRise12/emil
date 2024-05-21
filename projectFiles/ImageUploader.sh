@@ -88,7 +88,8 @@ while true; do
                             #update json(derulooo) in photo archive 
                             sudo sed -i '$d' $path_to_archive/$prevFile.json #delete last line from file
                             sudo truncate -s-1 $path_to_archive/$prevFile.json #write to last line of file
-                            sudo echo -e ",\n\t\"Drone Copy\": $droneID \n}" >> $path_to_archive/$prevFile.json #pipe data to file
+                            sudo echo -e ",\n\t\"Drone Copy\": $droneID,\n\t\"Seconds Epoch\": $(date +%s) \n}" >> $path_to_archive/$prevFile.json #pipe data to file
+                            
 
                             img_downloaded="1"
                             let "resendCount=0"
