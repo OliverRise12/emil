@@ -10,7 +10,6 @@ while true; do
 	#search for wifi
 	until [[ $(iwgetid) == *"EMIL-TEAM-19-2.4GHz"* ]]; do
 	    sudo iw dev wlo1 scan | grep SSID| while read -r line ; do
-	    	    echo "$line"
 		    if [[ "$line" == *"EMIL-TEAM-19-2.4GHz"* ]]; then
 		      echo "CAM FOUND"
 		      #connect
@@ -44,11 +43,16 @@ while true; do
 		    #go to dateFolder
 		    cd "$DRONEPHOTOFOLDER/$dateFolder"
 		    
-		    curl -O "$SERVERIP/$payload.jpg" 
-		    curl -O "$SERVERIP/$payload.json"
-
-		    mosquitto_pub -h $SERVERIP -p 1883 -u emil -P emil -t $receiptTopic -m "$payload" 
+		    curl -O -m 20 "$SERVERIP/$payload.jpg"  
+		    curl -O -m 20 "$SERVERIP/$payload.json" 
+		    if [ $? -eq 0 ]; then 		    
+				mosquitto_pub -h $SERVERIP -p 1883 -u emil -P emil -t $receiptTopic -m "$payload" 
+		    else
+		    	exitBool="1"
+		    
+		    fi
 		    break
+		    
 		fi 
 		if [ "$payload" == "bytes))" ]; then 
 		    next_is_string="1"
