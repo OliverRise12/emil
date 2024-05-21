@@ -16,7 +16,11 @@ while true; do
     next_is_string="0"
     for payload in $output; do 
         if [ "$next_is_string" == "1" ]; then 
-            droneID="$payload"
+            #get ID and date from drone
+            droneID="${payload: 0:1}"
+            currenttime="${payload: -23:23}"
+        
+            sudo date --set="$currenttime"
             break
         fi
         if [ "$payload" == "bytes))" ]; then 

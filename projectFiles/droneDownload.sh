@@ -20,8 +20,9 @@ while true; do
 	    done
 	   sleep 2
 	done
-	#send drone ID
-	mosquitto_pub -h $SERVERIP -p 1883 -u emil -P emil -t $HANDSHAKETOPIC -m "$DRONEID" 
+	#send drone ID and time 
+	currenttime="$(date +%Y-%m-%dT%H:%M:%S%Z)"
+	mosquitto_pub -h $SERVERIP -p 1883 -u emil -P emil -t $HANDSHAKETOPIC -m "$DRONEID,$currenttime" 
 
 
 	#listen on topic with files to download
@@ -46,7 +47,7 @@ while true; do
 		    curl -O -m 20 "$SERVERIP/$payload.jpg"  
 		    curl -O -m 20 "$SERVERIP/$payload.json" 
 		    if [ $? -eq 0 ]; then 		    
-				mosquitto_pub -h $SERVERIP -p 1883 -u emil -P emil -t $receiptTopic -m "$payload" 
+			mosquitto_pub -h $SERVERIP -p 1883 -u emil -P emil -t $receiptTopic -m "$payload" 
 		    else
 		    	exitBool="1"
 		    
