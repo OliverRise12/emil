@@ -3,13 +3,14 @@ receiptTopic="downloadReceipt"
 requestTopic="downloadRequest"
 DRONEPHOTOFOLDER="/home/philip/photos"
 SERVERIP="192.168.10.1"
+ADAPTER="wlo1"
 HANDSHAKETOPIC="droneHello"
 DRONEID="1"
 
 while true; do
 	#search for wifi
 	until [[ $(iwgetid) == *"EMIL-TEAM-19-2.4GHz"* ]]; do
-	    sudo iw dev wlo1 scan | grep SSID| while read -r line ; do
+	    sudo iw dev "$ADAPTER" scan | grep SSID| while read -r line ; do
 		    if [[ "$line" == *"EMIL-TEAM-19-2.4GHz"* ]]; then
 		      echo "CAM FOUND"
 		      #connect
@@ -44,8 +45,10 @@ while true; do
 		    #go to dateFolder
 		    cd "$DRONEPHOTOFOLDER/$dateFolder"
 		    
-		    curl -O -m 20 "$SERVERIP/$payload.jpg"  
-		    curl -O -m 20 "$SERVERIP/$payload.json" 
+		    curl -O -m 20 "$SERVERIP/photos/$payload.jpg"  
+		    curl -O -m 20 "$SERVERIP/photos/$payload.json" 
+		    
+		    echo "$SERVERIP/photos/$payload.jpg"  
 		    if [ $? -eq 0 ]; then 		    
 			mosquitto_pub -h $SERVERIP -p 1883 -u emil -P emil -t $receiptTopic -m "$payload" 
 		    else

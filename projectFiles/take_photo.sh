@@ -1,6 +1,6 @@
 #!/bin/sh
 trigger="${1:-None}" # Time/Motion/External default:None
-root_dir="${2:-photos}" # root directory of where it puts photos default:photos
+root_dir="../../var/www/html/photos" #"${2:-photos}" # root directory of where it puts photos default:photos
 timestamp=$(date '+%Y-%m-%d %H:%M:%S.%3N%:z')
 
 mkdir -p "/home/emil/$root_dir" && cd "/home/emil/$root_dir"
