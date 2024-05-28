@@ -1,7 +1,7 @@
 #SERVERIP="10.0.0.10" #193.1'
 receiptTopic="downloadReceipt"
 requestTopic="downloadRequest"
-DRONEPHOTOFOLDER="/home/philip/photos"
+DRONEPHOTOFOLDER="/home/sigurd/photos"
 SERVERIP="192.168.10.1"
 ADAPTER="wlo1"
 HANDSHAKETOPIC="droneHello"
@@ -30,7 +30,7 @@ while true; do
 
 	while true
 	do
-	    cd $DRONEPHOTOFOLDER 
+	    mkdir -p $DRONEPHOTOFOLDER && cd $DRONEPHOTOFOLDER 
 	    #wait for request
 	    output="$(mosquitto_sub -d -h $SERVERIP -p 1883 -u emil -P emil -C 1 -W 10 -t $requestTopic)"
 	    #find msg in mosquitto sub output
