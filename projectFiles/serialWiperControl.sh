@@ -1,7 +1,7 @@
 #!/bin/sh
 #serial setup :D
 sudo stty -F /dev/ttyACM0 min 1 time 0 cs8 -brkint -icrnl -imaxbel -opost -isig -icanon -iexten -echo -echoe -echok -echoctl -echoke
-
+log_file_path="/var/www/html/EventLog.txt"
 while true
 do
     var="$(head -1 /dev/ttyACM0)"
@@ -9,8 +9,10 @@ do
     wipeDone="0"
 	
     if [ "${var: -3:1}" == "1" ]; then #if rain detected, go to wiper loop
+        sudo echo "$(date): Rain detected, starting wipe procedure" >> "$log_file_path"
         while true #wiper loop 
         do
+            
             var="$(head -1 /dev/ttyACM0)" #get json string
             echo "$var" #>>  /home/emil/debug.txt
 	    #get second element in var 

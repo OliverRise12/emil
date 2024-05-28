@@ -1,5 +1,5 @@
 TRIGGERTOPIC="emil/wildlife_trigger"
-
+log_file_path="/var/www/html/EventLog.txt"
 while true
 do
     output="$(mosquitto_sub -d -h localhost -p 1883 -u emil -P emil -C 1 -W 5 -t $TRIGGERTOPIC)"
@@ -8,6 +8,7 @@ do
         if [ "$next_is_string" == "1" ]; then 
             if [ "$payload" -eq "1" ];then
                 sudo sh /home/emil/projectFiles/take_photo.sh External   
+                sudo echo "$(date): External trigger activated" >> "$log_file_path"
                 break
             fi
          

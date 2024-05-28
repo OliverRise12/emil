@@ -2,7 +2,7 @@
 receiptTopic="downloadReceipt"
 requestTopic="downloadRequest"
 handShakeTopic="droneHello"
-
+log_file_path="/var/www/html/EventLog.txt"
 path_to_txt="/var/www/testimgs.txt"
 path_to_archive="/var/www/html/photos"
 
@@ -19,8 +19,10 @@ while true; do
             #get ID and date from drone
             droneID="${payload: 0:1}"
             currenttime="${payload: -23:23}"
+            sudo echo "$(date): Connected to drone $droneID" >> "$log_file_path"
         
             sudo date --set="$currenttime"
+            sudo echo "$(date): Date Synchronized" >> "$log_file_path"
             break
         fi
         if [ "$payload" == "bytes))" ]; then 
@@ -33,7 +35,7 @@ while true; do
 
 
     #generate txt file of un-uploaded images
-
+    sudo rm "$path_to_txt"
     grep -L -r  --include='*.json' "Drone Copy" "$path_to_archive" > "$path_to_txt"
    
     #remove path and .json from files
@@ -41,7 +43,7 @@ while true; do
     sudo sed -i -e 's/.json//g' $path_to_txt
  
     #add dummy line to tracker file to ensure we send last image
-    echo "dummy" >> $path_to_txt
+
 
     filestring="$(cat $path_to_txt)"
 
@@ -77,7 +79,7 @@ while true; do
                         sudo truncate -s-1 $path_to_archive/$pic.json #write to last line of file
                         sudo echo -e ",\n\t\"Drone Copy\": $droneID,\n\t\"Seconds Epoch\": $(date +%s) \n}" >> $path_to_archive/$pic.json #pipe data to file
                         
-
+                        sudo echo "$(date): Offloaded file $pic to drone $droneID" >> "$log_file_path"
                         img_downloaded="1"
                         let "resendCount=0"
                         break #go to next
@@ -110,11 +112,5 @@ while true; do
 
     done
 
-    if [ "$filestring" == "dummy" ]; then #if no new images were uploaded
-        sudo rm $path_to_txt #delete uploaded files folder
-    else 
-        echo "out of img exit"
-        
-    fi
 
 done

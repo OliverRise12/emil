@@ -1,7 +1,10 @@
 #!/bin/sh
-photo_dir="${1:-photos}"
+photo_dir="${1:-../../var/www/html/photos}"
 freq="${2:-5}"
+log_file_path="/var/www/html/EventLog.txt"
+
 mkdir -p /home/emil/.motion_detector/ && cd /home/emil/.motion_detector
+sudo rm -r *
 while true ; do
 	sudo sh /home/emil/projectFiles/take_photo.sh Motion .motion_detector
 	count=$(grep -Rl "" ./ | grep ".jpg" | wc -l)
@@ -14,6 +17,8 @@ while true ; do
 
 	if [ "$res" = "Motion detected" ]; then	
 		img_path=$(echo "$img_paths" | tail -n 1)
+		sudo echo "$(date): Motion detected" >> "$log_file_path"
+
 		sudo mkdir -p "/home/emil/$photo_dir$(echo $img_path | grep -Po '\/.+\/')"
 		sudo cp "$img_path" "/home/emil/$photo_dir$(echo $img_path | grep -Po '\/.+')"
 		json_path=$(echo "$json_paths" | tail -n 1) 
