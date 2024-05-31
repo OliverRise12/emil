@@ -9,9 +9,9 @@ var=git ls-files --directory "metadata" | wc -l
 read -n 1 -p "Did you take photo" input
 #downloadPictures
 echo "Downloading pictures"
-sudo bash droneDownload.sh
+sudo bash droneDownload.sh &
 echo "Sleeping for 3 minutes"
-sleep(180)
+sleep 180
 #get amount of annotated pictures
 var2=git ls-files --directory "metadata" | wc -l
 
