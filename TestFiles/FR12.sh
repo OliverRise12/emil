@@ -1,9 +1,6 @@
 echo "--------------------------------"
 echo "Test for FR12"
-#Might need version for PI and version for drone.
-
-#Version for PI:
-#Take photo 
+#Camera Script
 sudo bash ../projectFiles/take_photo.sh
 
 cd var/www/html/photos

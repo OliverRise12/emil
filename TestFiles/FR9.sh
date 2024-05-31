@@ -1,6 +1,7 @@
 TRIGGERTOPIC="emil/wildlife_trigger"
 echo "--------------------------------"
 echo "Test for FR9"
+#Camera Script
 #count amount of lines in logfile
 var=wc -l /var/www/html/EventLog.txt
 

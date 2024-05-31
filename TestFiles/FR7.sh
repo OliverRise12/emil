@@ -1,7 +1,8 @@
 
 echo "--------------------------------"
 echo "Test for FR7.1"
-#Find innit number of photos
+#Camera Script
+#Find init number of photos
 echo "Sending 0 to angleScript for conversion"
 
 
