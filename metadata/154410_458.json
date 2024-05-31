@@ -1,0 +1,13 @@
+{
+	"File Name": "154410_458",
+	"Create Date": "2024-05-28 15:44:10.458+01:00",
+	"Create Seconds Epoch": 1716907450.458,
+	"Trigger": "Motion",
+	"Subject Distance": 0.6 m,
+	"Exposure Time": "1/21",
+	"ISO": 200,
+	"Annotation":{
+		"Source": "Ollama:7b",
+		"Test": " The image you've shared appears to show a rectangular object with a distinct shape and what seems to be a metallic surface, possibly a piece of furniture or a small appliance. The object is placed on a flat surface, which might be a floor or a table. The background is nondescript and does not provide any additional context or setting. If you have any specific questions about the image, feel free to ask! "
+	}
+}
