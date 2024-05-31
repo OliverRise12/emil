@@ -10,7 +10,7 @@ echo "Initially photos has $var photos"
 echo "Publishing to $TRIGGERTOPIC to activate external trigger"
 mosquitto_pub -h localhost -p 1883 -u emil -P emil -t $TRIGGERTOPIC -m "1"
 
-sleep 2
+sleep 4
 varfter=$(find /var/www/html/photos -type f | wc -l)
 echo "After having activated the trigger, photos has $varfter photos"
 
