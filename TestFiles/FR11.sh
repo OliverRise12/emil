@@ -1,5 +1,6 @@
 echo "--------------------------------"
 echo "Test for FR11"
+#Drone Script
 echo "Turn of network card and then turn it back on"
 nmcli d disconnect wlo1
 nmcli d connect wlo1
