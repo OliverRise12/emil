@@ -5,41 +5,47 @@ path_to_archive="/home/sigurd/photos"
 path_to_metadata="/home/sigurd/emil/metadata"
 
 while true; do
-    #sudo rm "$path_to_txt"
-    sudo mkdir -p "$path_to_metadata"
-    grep -L -r  --include='*.json' "Annotation" "$path_to_archive" > "$path_to_txt"
-   
-    #remove path and .json from files
-    sudo sed -i -e 's/\/home\/sigurd\/photos\///g' $path_to_txt
-    sudo sed -i -e 's/.json//g' $path_to_txt
- 
-    filestring="$(cat $path_to_txt)"
-    
-    #go to img folder
-    cd "$path_to_archive"
+    internet_status=$(ping -q -c1 1.1.1.1 2>/dev/null)
+    if [[ $internet_status = *'transmitted'* ]]; then
+        #sudo rm "$path_to_txt"
+        sudo mkdir -p "$path_to_metadata"
+        grep -L -r  --include='*.json' "Annotation" "$path_to_archive" > "$path_to_txt"
 
-    if [ "$filestring" == " " ]; then
-    :
-    else
+        #remove path and .json from files
+        sudo sed -i -e 's/\/home\/sigurd\/photos\///g' $path_to_txt
+        sudo sed -i -e 's/.json//g' $path_to_txt
 
-	    for pic in $filestring  #
-	    do	
-		annotation="$(sudo bash /home/sigurd/emil/projectFiles/describe_image.sh "$pic.jpg")"
-		#delete line from undownloaded file 
-		sudo sed -i '1d' $path_to_txt   #line: 1, d: delete
-		sudo sed -i '/^$/d' $path_to_txt #delete first line in file
+        filestring="$(cat $path_to_txt)"
 
-		#update json(derulooo) in photo archive 
-		sudo sed -i '$d' $path_to_archive/$pic.json #delete last line from file
-		sudo truncate -s-1 $path_to_archive/$pic.json #write to last line of file
-		sudo echo -e "\n\t\"Annotation\":{\n\t\t\"Source\": \"Ollama:7b\",\n\t\t\"Test\": \"$annotation\"\n\t}\n}" >> $path_to_archive/$pic.json #pipe data to file
+        #go to img folder
+        cd "$path_to_archive"
 
-		sudo cp "$pic.json" "$path_to_metadata"
+        if [ "$filestring" == " " ]; then
+        :
+        else
 
-	    done	
-     cd "$path_to_metadata"
-     git add .
-     git commit -m "$(date)"
-     git push
-     fi
+            for pic in $filestring  #
+            do	
+            annotation="$(sudo bash /home/sigurd/emil/projectFiles/describe_image.sh "$pic.jpg")"
+            #delete line from undownloaded file 
+            sudo sed -i '1d' $path_to_txt   #line: 1, d: delete
+            sudo sed -i '/^$/d' $path_to_txt #delete first line in file
+
+            #update json(derulooo) in photo archive 
+            sudo sed -i '$d' $path_to_archive/$pic.json #delete last line from file
+            sudo truncate -s-1 $path_to_archive/$pic.json #write to last line of file
+            sudo echo -e "\n\t\"Annotation\":{\n\t\t\"Source\": \"Ollama:7b\",\n\t\t\"Test\": \"$annotation\"\n\t}\n}" >> $path_to_archive/$pic.json #pipe data to file
+
+            sudo cp "$pic.json" "$path_to_metadata"
+
+            done	
+            cd "$path_to_metadata"
+            git add .
+            git commit -m "$(date)"
+            git push
+            fi
+        else
+            echo 'Annotator scripts does not have an internet connection, trying again in 5 seconds'
+            sleep(5)
+        end
 done
