@@ -1,8 +1,8 @@
 
 #!/bin/sh
-path_to_txt="/home/philip/AnnoLog.txt"
-path_to_archive="/home/philip/photos"
-path_to_metadata="/home/philip/emil/metadata"
+path_to_txt="~/AnnoLog.txt"
+path_to_archive="~/photos"
+path_to_metadata="~/emil/metadata"
 
 while true; do
     #sudo rm "$path_to_txt"
@@ -10,7 +10,7 @@ while true; do
     grep -L -r  --include='*.json' "Annotation" "$path_to_archive" > "$path_to_txt"
    
     #remove path and .json from files
-    sudo sed -i -e 's/\/home\/philip\/photos\///g' $path_to_txt
+    sudo sed -i -e 's/\~\/photos\///g' $path_to_txt
     sudo sed -i -e 's/.json//g' $path_to_txt
  
     filestring="$(cat $path_to_txt)"
@@ -21,10 +21,9 @@ while true; do
     if [ "$filestring" == " " ]; then
     :
     else
-
 	    for pic in $filestring  #
 	    do	
-		annotation="$(sudo bash /home/philip/emil/projectFiles/describe_image.sh "$pic.jpg")"
+		annotation="$(sudo bash ~/emil/projectFiles/describe_image.sh "$pic.jpg")"
 		#delete line from undownloaded file 
 		sudo sed -i '1d' $path_to_txt   #line: 1, d: delete
 		sudo sed -i '/^$/d' $path_to_txt #delete first line in file
