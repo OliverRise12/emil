@@ -1,6 +1,7 @@
 echo "--------------------------------"
 echo "Test for FR2 and FR3"
-#Find innit number of photos
+#Camera Script
+#Find init number of photos
 cd ../photos
 var=$(ls -1 | wc -l)
 echo "Initially photos has $var photos"

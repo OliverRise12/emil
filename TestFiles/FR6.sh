@@ -1,7 +1,8 @@
 TRIGGERTOPIC="emil/wildlife_trigger"
 echo "--------------------------------"
 echo "Test for FR6"
-#Find innit number of photos
+#Find init number of photos
+#Camera Script
 cd /var/www/html/photos
 var=$(find /var/www/html/photos -type f | wc -l) #$(ls -1 | wc -l)
 echo "Initially photos has $var photos"
