@@ -1,16 +1,16 @@
+TRIGGERTOPIC="emil/wildlife_trigger"
 echo "--------------------------------"
 echo "Test for FR2 and FR3"
 #Camera Script
 #Find init number of photos
-cd ../photos
-var=$(ls -1 | wc -l)
+var=$(find /var/www/html/photos -type f | wc -l)
 echo "Initially photos has $var photos"
 
 #take photo
-sudo bash ../projectFiles/take_photo.sh
-echo "Taking photo"
-cd ../photos
-varfter=$(ls -1 | wc -l)
+echo "Publishing to $TRIGGERTOPIC to activate external trigger"
+mosquitto_pub -h localhost -p 1883 -u emil -P emil -t $TRIGGERTOPIC -m "1"
+sleep 2
+varfter=$(find /var/www/html/photos -type f | wc -l)
 echo "Now photos has $varfter photos"
 #Check if photos grew by 2 in size
 if [ $((var+2)) -eq $varfter ]; then
