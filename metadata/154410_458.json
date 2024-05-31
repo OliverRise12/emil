@@ -1,0 +1,13 @@
+{
+	"File Name": "154410_458",
+	"Create Date": "2024-05-28 15:44:10.458+01:00",
+	"Create Seconds Epoch": 1716907450.458,
+	"Trigger": "Motion",
+	"Subject Distance": 0.6 m,
+	"Exposure Time": "1/21",
+	"ISO": 200,
+	"Annotation":{
+		"Source": "Ollama:7b",
+		"Test": " The image you've provided appears to be taken from a video with a low resolution. It shows a small, yellow object that looks like a brick or a piece of plastic, which is placed on a surface. The object has a rough texture and seems to have some sort of text or markings on it, but the resolution is too low to make out the details. In the background, there is a plain, dark surface, which might be a wall or a table. The image has a grainy quality, indicating that it may not have been shot with high-quality equipment or may be affected by camera shake or motion blur. "
+	}
+}
