@@ -13,6 +13,6 @@ The content of the projectFiles has the following the following associated funct
 6. externalPhotoTrigger.sh: (Camera Script) Take photo with Trigger = External when msg received on topic emil/wildlife_trigger
 7. motion_detect.py: (Camera Script) Compares 2 images to detect motion
 8. motion_logic.sh: (Camera Script) Uses motion_detect.py to determine motion, and then adds image to photos if motion is detected.
-9. serialWiperControl.sh: Reads input from Pico, if rain is detected, sets new angle via angleScript.sh.
-10. take_photo.sh: Takes a photo
+9. serialWiperControl.sh: (Camera Script) Reads input from Pico, if rain is detected, sets new angle via angleScript.sh.
+10. take_photo.sh: (Camera Script) Takes a photo
 11. testimgs.txt: Temp storage of image names of images to download.
