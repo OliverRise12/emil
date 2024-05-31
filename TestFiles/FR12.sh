@@ -4,14 +4,23 @@ echo "Test for FR12"
 
 #Version for PI:
 #Take photo 
+sudo bash ../projectFiles/take_photo.sh
+
+cd var/www/html/photos
+
+amount_of_downloaded_photos =grep -l "Drone Copy" * -R | wc -l
+
 #Assert photos have been taken and number metadata files that contain "Drone Copy" is X 
 #manually run droneDownload
-#Wait some time
+read -n 1 -p "Did you download drone images?" input
+
+amount_of_downloaded_photos2 =grep -l "Drone Copy" * -R | wc -l
+
 #Assert that photos metadata files metadatafiles that contain Drone Copy is begger than X
 
-if [ $(ssid_of_connected_wifi) -eq "EMIL-TEAM-19-2.4GHz" ]; then
-    echo "FR11 Passed"
+if [ $amount_of_downloaded_photos2 -gt amount_of_downloaded_photos ]; then
+    echo "FR12 Passed"
 else
-    echo "FR11 Failed"
+    echo "FR12 Failed"
 fi
 echo "------------------------------"
