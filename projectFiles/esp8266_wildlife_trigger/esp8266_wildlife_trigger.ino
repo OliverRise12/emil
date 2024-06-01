@@ -4,6 +4,8 @@
 // University of Southern Denmark
 
 
+// 2022-03-24, Kjeld Jensen, First version
+// 2024-05-14, Philip Sanderink, Modification
 
 // Configuration
 #define WIFI_SSID       "EMIL-TEAM-19-2.4GHz"
